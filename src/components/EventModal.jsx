@@ -17,8 +17,9 @@ const EventModal = ({
   setSelectedCategory,
   exportEventsAsJSON,
 }) => {
-  const categories = ["Work", "Personal", "Others"];
-
+  const categories = ["Work", "Personal", "Others"]; // Categories for events
+ 
+  // Function to return CSS class based on category
   const getCategoryClass = (category) => {
     switch (category) {
       case "Work":
@@ -32,13 +33,17 @@ const EventModal = ({
     }
   };
 
+  // Filter events based on the filter keyword
   const filteredEvents = events.filter((event) =>
     event.text.toLowerCase().includes(filterKeyword.toLowerCase())
   );
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+      
+      {/* Modal container */}
       <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+         {/* Close button */}
         <div className="bg-white rounded-lg pr-8 pb-8 w-full relative">
           <button
             onClick={closeModal}
@@ -48,6 +53,7 @@ const EventModal = ({
           </button>
         </div>
 
+         {/* Time input fields */}
         <div className="mb-4 flex">
           <label>Time:</label>
           <input
@@ -71,6 +77,8 @@ const EventModal = ({
             maxLength={60}
           />
         </div>
+
+            {/* Category dropdown */}
         <label
           htmlFor="eventCategory"
           className="block text-sm font-medium text-gray-700"
@@ -95,6 +103,8 @@ const EventModal = ({
           className="border border-gray-300 rounded p-2 w-full "
           placeholder="Event details"
         />
+
+         {/* Submit button */}
         <button
           onClick={() => handleEventSubmit()}
           className="bg-black text-white rounded py-2 px-4 w-full"
@@ -102,6 +112,7 @@ const EventModal = ({
           {editingEvent ? "Update Event" : "Save Event"}
         </button>
 
+       {/* Events list */}
         <h3 className="mt-4">Events on this day</h3>
         <div className="mb-4">
           <input
@@ -133,6 +144,8 @@ const EventModal = ({
           </div>
         ))}
         </div>
+
+         {/* Export events button */}
         <button
           onClick={exportEventsAsJSON}
           className="bg-black text-white px-4 py-2 rounded-lg  mt-2"

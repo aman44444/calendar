@@ -81,17 +81,18 @@ const CalendarGrid = () => {
       downloadLink.click();
     };
 
-    
+    // Navigate to the previous month
     const prevMonth = () => {
        setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1))
        setCurrentYear((prevYear) => (currentMonth === 0 ? prevYear - 1 : prevYear))
     } 
-
+    // Navigate to the next month
     const nextMonth = () => {
        setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1))
        setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear))
     }
 
+    // Handle click on a day to show the event modal
     const modalClick = (day) => {
       const clickedDate = new Date(currentYear, currentMonth, day)
       const today = new Date();
@@ -103,6 +104,7 @@ const CalendarGrid = () => {
       }
     }
 
+     // Check if two dates are the same day
     const isSameDay =(date1,date2) => {
       return (
          date1 instanceof Date && date2 instanceof Date &&
@@ -112,10 +114,12 @@ const CalendarGrid = () => {
       )
     }
 
+    // Check if a specific day has events
     const hasEvent = (day) => {
       return events.some((event) => isSameDay(event.date, new Date(currentYear, currentMonth, day)));
     };
 
+    // Submit a new or edited event
     const handleEventSubmit = () => {
       const newEvent = {
         id: editingEvent ? editingEvent.id :Date.now(),
@@ -130,6 +134,8 @@ const CalendarGrid = () => {
       isSameDay(event.date, selectedDate) && event.time === newEvent.time
     );
 
+
+     // Check for overlapping events
     if (isOverlapping) {
       alert('An event at the same time already exists!');
       return;
@@ -158,6 +164,7 @@ const CalendarGrid = () => {
       setEditingEvent(null)
     }
 
+    // Edit an existing event
     const handleEditEvent = (event) => {
       setSelectedDate(new Date(event.date))
       setEventTime({
@@ -169,6 +176,7 @@ const CalendarGrid = () => {
       setShowEventPopUp(true)
     }
 
+    // Delete an event
   const handleDeleteEvent = (eventId) => {
     const updatedEvents = events.filter((event) => event.id !== eventId)
     
